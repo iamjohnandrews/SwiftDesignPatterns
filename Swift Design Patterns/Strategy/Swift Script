@@ -1,0 +1,31 @@
+Problem: You need to implement behaviours in certain objects but not others. 
+Options: 
+1) Yoiu could use inheritance and just have methods do nothing
+Problem with inheritance: changing super class can unintentinally affect subclass
+
+2) You could make behaviors an interface and copy paste code into object that implements the interface behavior
+Problem: duplicate code and increase number of subclasses means increase maintenance headache when you need to make any change
+*this can be solved with Switt extensions with default implementation, but you would have to ovverride on certain ocasions
+
+P.9 Design principle: Identify the aspects of your code that vary and seperate them from what stays the same
+
+In Duck class, seperate fly and quack methods and create a class that represents each behavior
+
+p. 11 what Strategy is doing
+The structs entire reason for being created is to represent behaviour, and they will implement the FLying Behvaior protocol rather than the Animal Class... no need implementing the protocol on Animal because know lots of animals it will not apply to
+
+p.13 Benefit
+This is Protocol Oriented Programming?
+WIth this design, other types of objects can reuse fly behvaoir because these behviors are not hidden inside Animal class (for examle, a class Airplane)
+ALso, you can add new behaviors without reduing any code in ANimal class.
+All you do is in ANimal class, add reference to something that implements the FLyBehavior protocol -> the flyThing variable
+
+I use structs because for this example, I knew I would not be sublassing ItFlys and ItCannotFly, If i thought I might be using inheritance, I would have created classes
+
+lines 59-63 display the patterns flexibility and how you can change behavior at runtime
+
+p. 23 Composition
+When you put classes together like this, you're using composition. Instead of inheriting the behavior, the pigeon and chipmunk get their behaviour by being composed with the right beahviour object
+Composition gives you flexibility and let syou change behavior at runtime
+
+line 20: Show version where you give default value and don't have to deal with optionals & unwrapping
