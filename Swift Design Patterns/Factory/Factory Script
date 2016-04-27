@@ -1,0 +1,33 @@
+Context:
+A coding principle is to code to an interface and not an implementaion. When you use (), you are coding to an implementation by instantiating a concrete class - and tying your code to a concrete class makes code more fragile
+
+Maintenance!
+When you have a whole set of related concrete classes, you often end up having to write code with bunch of if else's (beginning of Ch 4.)
+Here we’ve got several concrete classes being instantiated, and the decision of which to instantiate is made at runtime depending on some set of conditions.
+When you see code like this, you know that when it comes time for changes or extensions, you’ll have to reopen this code and examine what needs to be added (or deleted). Often this kind of code ends up in several parts of the application making maintenance and updates more difficult and error-prone.
+Technically there’s nothing wrong with new. After all, it’s a fundamental part of Java. The real culprit is our old friend CHANGE and how change impacts our use of new.
+By coding to an interface, you know you can insulate yourself from a lot of changes that might happen to a system down the road. Why? If your code is written to an interface, then it will work with any new classes implementing that interface through polymorphism. However, when you have code that makes use of lots of concrete classes, you’re looking for trouble because that code may have to be changed as new concrete classes are added. So, in other words, your code will not be “closed for modification.” To extend it with new concrete types, you’ll have to reopen it.
+
+Problem:
+You own a pizza store that is expanding across America. You’d really like to create a framework that ties the store and the pizza creation together, yet still allows things to remain flexible in order to apply regional differences to pizza styles.
+
+Solution A:
+Have a basic Pizza pbject and have specialty pizzas inherit from it
+
+Problem with Solution A:
+When you directly instantiate an object, you are depending on its concrete class (see screen shot).
+It should be pretty clear that reducing dependencies to concrete classes in our code is a “good thing.” In fact, we’ve got an OO design principle that formalizes this notion; it even has a big, formal name: Dependency Inversion Principle - Depend upon abstractions. Do not depend upon concrete classes.
+
+
+Final Solution:
+The PizzaStore already has a well-honed order system in the orderPizza() method and you want to ensure that it’s consistent across all franchises.
+What varies among the regional PizzaStores is the style of pizzas they make—New York Pizza has thin crust, Chicago Pizza has thick, and so on—and we are going to push all these variations into the createPizza() method and make it responsible for creating the right kind of pizza. The way we do this is by letting each subclass of PizzaStore define what the createPizza() method looks like. So, we will have a number of concrete subclasses of PizzaStore, each with its own pizza variations, all fitting within the PizzaStore framework and still making use of the well-tuned orderPizza() method.
+
+Use a struct because I am not going to use inheritance. Do not inherit from concrete class
+
+How it works:
+OO Design Principle: identify the aspects that vary and separate them from what stays the same.
+Factory Method Design Pattern encapsulates object creation through a defined interface, but lets subclasses decide which concrete class to instantiate
+
+Why use Abstract Factory Pattern:
+The Factory Method Pattern is useful if you’ve only got one concrete creator because you are decoupling the implementation of the product from its use. If you add additional products or change a product’s implementation, it will not affect your Creator (because the Creator is not tightly coupled to any ConcreteProduct).
