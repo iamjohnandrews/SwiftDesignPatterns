@@ -1,0 +1,36 @@
+Context:
+You have to create a touchpad ordering system for a fast growing coffee shop. They offer a wide variety of coffees because they provide so many different add on condiment options. Its the driving reason they've grown so fast and now want to invest in technology.
+
+Coffee and condiments are comodities that routinely change as customers flavors evolve. The system you build must be able to easily add or remove different coffees. In addition, the coffee market is volative and the cost of condiments can wildly fluctuate - and these cost changes will be reflected in the final price of a cup of coffee. In addition to your coffee, you can also ask for several condiments like steamed milk, soy, and mocha, and have it all topped off with whipped milk. The coffee shop charges a bit for each of these, so they really need to get them built into their order system.
+
+Problem:
+Whats best way to build a system that 1) can handle many condiment options as well as 2) track price changes as the cost of different condiments and coffee changees day to day?
+
+Potential Solution A:
+Take advantage of inheritance. Have a basic coffee class and when customer orders a coffee, create a subclass that adds on all the condiments.
+
+
+Problem with Solution A - why doesn't it align with context:
+Maintenenace nightmare and way to many classes because of the wide range of coffee options. If you want to make changes, you have to repeat the change in many of these sublasses. For example, if the cost of milk changes, you have to change your code in every class that incorporates milk in the coffee.
+
+P
+otential Solution B:
+Take advantage of inheritance. Have a basic coffee class that has a Boolean property for every condiment. In subclass, if the drink has the condiment, convert property to "true".
+
+
+Problem with Solution B - why doesn't it align with context:
+This option is better than Solution A regarding maintenance (it's still another big maintenance problem) but is rigid. In the parent class, there will have to be a huge switch statements for both coffee discription and for cost. If the coffee shop wants to change the price for condiments, they are forced to alter existing code. This design will also be unable to handle an order like double mocha, or if a new beverage is added to the menu like fruit smoothie.
+
+Why inheritence does not work in this context:
+When you inherit behavior by subclassing, that behavior is set statically at compile time. In addition, all subclasses must inherit the same behavior. 
+
+Final Solution:
+Use the Decorator Pattern to wrap an object and add functionality dynamically
+
+How it works:
+When implementing this pattern in Swift, its important to keep in mind that all your drinks and condiments need to be of the same type.
+Drinks will be the objects you wrap condiments with, so in these classes you set the description and cost properties.
+The condiments will wrap around the drink objects so we will have a contructor method that recieved a beverage parameter when initialized. Need to have a beverage property that holds a reference to the object recieved in the contructor in order to continually wrap more and more condiments over the drink object.
+
+Why Decorator Pattern works:
+You can extend an object’s behavior through composition, then I can do this dynamically at runtime.  By dynamically composing objects, I can add new functionality by writing new code rather than altering existing code. Because I’m not changing existing code, the chances of introducing bugs or causing unintended side effects in pre-existing code are much reduced.

@@ -3,47 +3,71 @@
 import UIKit
 
 
-// Usually Beverage would be an abstract class but Swift programming language doesn't support abstract classes
-
 protocol BeverageDecorator {
-//    var description: String {get set}
-//    var cost: float_t {get set}
-    
     func drinkDescription() -> String
-    
-    func getDrinkCost() -> float_t
+    func getDrinkCost() -> Double
 }
 
-//extension BeverageDecorator  {
-//    var description: String {return "TBD by subclass"}
-//    var cost: float_t {return 1.79}
-//}
-//How could I implement Decorator with just extenstion as default
 
-class Beverage: BeverageDecorator {
-    
-    func getDrinkCost() -> float_t {
-        return 1.74 //this is just black coffee
-    }
+class Beverage: BeverageDecorator { //treat this like abstract class
+    var description = "TBD by Subclass"
+    var cost: Double = 0.0
     
     func drinkDescription() -> String {
-        return "TBD by subclass"
+        return description
+    }
+    func getDrinkCost() -> Double {
+        return cost
     }
 }
 
+// Drinks
+class HouseBlend: Beverage {
+    override init() {
+        super.init()
+        description = "House Blend Coffee"
+        cost = 1.89
+    }
+    
+    override func drinkDescription() -> String {
+        return description
+    }
+    
+    override func getDrinkCost() -> Double {
+        return cost
+    }
+}
+
+class Expresso: Beverage {
+    override init() {
+        super.init()
+        description = "Expresso"
+        cost = 3.09
+    }
+    
+    override func drinkDescription() -> String {
+        return description
+    }
+    
+    override func getDrinkCost() -> Double {
+        return cost
+    }
+}
+
+
+// Condiment Wrappers
 class Hazelnut: Beverage {
     var beverage: Beverage
     
     init(chosenDrink: Beverage ) {
         beverage = chosenDrink
-        super.init()
     }
     
     override func drinkDescription() -> String {
-        return beverage.drinkDescription() + "Hazelnut"
+        return beverage.drinkDescription() + " + Hazelnut"
     }
     
-    override func getDrinkCost() -> float_t {
+    override func getDrinkCost() -> Double {
         return beverage.getDrinkCost() + 0.42
     }
 }
@@ -53,25 +77,46 @@ class Caramel: Beverage {
     
     init(chosenDrink: Beverage ) {
         beverage = chosenDrink
-        super.init()
     }
     
     override func drinkDescription() -> String {
-        return beverage.drinkDescription() + "Caramel"
+        return beverage.drinkDescription() + " + Caramel"
     }
     
-    override func getDrinkCost() -> float_t {
-        return beverage.getDrinkCost() + 0.29
+    override func getDrinkCost() -> Double {
+        return beverage.getDrinkCost() + 0.27
     }
 }
 
-var coffee = Beverage()
-coffee.getDrinkCost()
+class WhipCream: Beverage {
+    var beverage: Beverage
+    
+    init(chosenDrink: Beverage ) {
+        beverage = chosenDrink
+    }
+    
+    override func drinkDescription() -> String {
+        return beverage.drinkDescription() + " + Whip Cream"
+    }
+    
+    override func getDrinkCost() -> Double {
+        return beverage.getDrinkCost() + 0.43
+    }
+}
 
-var hazelnutCoffee = Hazelnut(chosenDrink: coffee)
+let houseBlendCoffee = HouseBlend()
+houseBlendCoffee.getDrinkCost()
+houseBlendCoffee.drinkDescription()
+
+let hazelnutCoffee = Hazelnut(chosenDrink: houseBlendCoffee)
 hazelnutCoffee.getDrinkCost()
+hazelnutCoffee.drinkDescription()
 
-var hazelnutCaramelCoffee = Caramel(chosenDrink: hazelnutCoffee)
+let hazelnutCaramelCoffee = Caramel(chosenDrink: hazelnutCoffee)
 hazelnutCaramelCoffee.getDrinkCost()
+hazelnutCaramelCoffee.drinkDescription()
 
-
+let expresso = Expresso()
+let caramelHazelNutWhipCreamExpresso = WhipCream(chosenDrink: Caramel (chosenDrink: Hazelnut(chosenDrink: expresso)))
+caramelHazelNutWhipCreamExpresso.getDrinkCost()
+caramelHazelNutWhipCreamExpresso.drinkDescription()
