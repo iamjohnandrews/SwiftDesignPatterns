@@ -1,0 +1,42 @@
+Facade Script 
+
+Context:
+You’ve done your research and you’ve assembled a killer system complete with a DVD player, a projection video system, an automated screen, surround sound, and even a popcorn popper.
+Check out all the components you’ve put together:
+You’ve spent weeks running wire, mounting the projector, making all the connections, and fine tuning. Now it’s time to put it all in motion and enjoy a movie...
+
+Problem:
+Pick out a DVD, relax, and get ready for movie magic. Oh, there’s just one thing—to watch the movie, you need to perform a few tasks:
+① Turn on the popcorn popper
+② Start the popper popping
+③ Dim the lights
+④ Put the screen down
+⑤ Turn the projector on
+⑥ Set the projector input to DVD
+⑦ Put the projector on wide-screen mode
+⑧ Turn the sound amplifier on
+⑨ Set the amplifier to DVD input
+⑩ Set the amplifier to surround sound
+⑪ Set the amplifier volume to medium (5)
+⑫ Turn the DVD player on
+⑬ Start the DVD player playing
+When the movie is over, how do you turn everything off? Wouldn’t you have to do all of this over again, in reverse?
+Wouldn’t it be as complex to listen to a CD or the radio?
+If you decide to upgrade your system, you’re probably going to have to learn a slightly different procedure.
+So what to do? The complexity of using your home theater is becoming apparent!
+
+Potential Solution A:
+
+Problem with Solution A - why doesn't it align with context:
+
+Potential Solution B:
+
+
+Problem with Solution B - why doesn't it align with context:
+
+Final Solution:
+
+How it works:
+
+Why Facade Pattern works:
+In addition to adding a simpler interface, the Facade Pattern also allows you to decouple your client implementation from any one subsystem. Let’s say that you get a big raise and decide to upgrade your home theater to all new components that have different interfaces. Well, if you coded your client to the facade rather than the subsystem, your client code doesn’t need to change, just the facade (and hopefully the manufacturer is supplying that!).

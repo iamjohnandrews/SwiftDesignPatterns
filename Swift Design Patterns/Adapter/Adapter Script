@@ -1,0 +1,19 @@
+Adapter Script 
+
+Context:
+Say you’ve got an existing software system that you need to work a new vendor class library into, but the new vendor designed their interfaces differently than the last vendor.
+
+Problem:
+Okay, you don’t want to solve the problem by changing your existing code (and you can’t change the vendor’s code). So what do you do? Well, you can write a class that adapts the new vendor interface into the one you’re expecting.
+
+
+Final Solution:
+The adapter acts as the middleman by receiving requests from the client and converting them into requests that make sense on the vendor classes.
+
+How it works:
+① The client makes a request to the adapter by calling a method on it using the target interface.
+② The adapter translates the request into one or more calls on the adaptee using the adaptee interface.
+③ The client receives the results of the call and never knows there is an adapter doing the translation.
+
+Why Adapter Pattern works:
+the great thing about us adapters is that we allow clients to make use of new libraries and subsets without changing any code; they just rely on us to do the conversion for them. Hey, it’s a niche, but we’re good at it.

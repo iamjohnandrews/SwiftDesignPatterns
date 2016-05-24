@@ -1,0 +1,27 @@
+Composite Script 
+
+Context:
+You run an expanding resturant and you're growing the menu. you currently have a diner menu and breakfast menu. You want to add a desert menu.
+
+Problem:
+How to set up your menu software to easily add/subtract menu's and menu items
+
+Potential Solution A:
+
+Problem with Solution A - why doesn't it align with context:
+
+Potential Solution B:
+
+
+Problem with Solution B - why doesn't it align with context:
+
+Final Solution:
+
+How it works:
+Use for complex solutions. Let’s think about this in terms of our menus: this pattern gives us a way to create a tree structure that can handle a nested group of menus and menu items in the same structure. By putting menus and items in the same structure we create a part-whole hierarchy; that is, a tree of objects that is made of parts (menus and menu items) but that can be treated as a whole, like one big über menu.
+Once we have our über menu, we can use this pattern to treat “individual objects and compositions uniformly.” What does that mean? It means if we have a tree structure of menus, submenus, and perhaps subsubmenus along with menu items, then any menu is a “composition” because it can contain both other menus and menu items. The individual objects are just the menu items—they don’t hold other objects. As you’ll see, using a design that follows the Composite Pattern is going to allow us to write some simple code that can apply the same operation (like printing!) over the entire menu structure.
+
+To start with, we need to create a component interface; this acts as the common interface for both menus and menu items and allows us to treat them uniformly. In other words, we can call the same method on menus or menu items.
+
+Why this Pattern works:
+The Composite Pattern allows you to compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.

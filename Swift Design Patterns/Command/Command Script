@@ -1,0 +1,20 @@
+Command Script 
+
+Context:
+cubile conversation page
+You want to build ann app that converts your phone into universal remote that can control everything in your home.
+
+Problem:
+We don’t want the remote to consist of a set of if statements, like “if button1 == Light, then light.on(), else if button1 == Hottub then hottub.jetsOn()”. We know that is a bad design because whenever a new vendor class comes out, we’d have to go in and modify the code, potentially creating bugs and more work for ourselves! I think it’s important we view this as a separation of concerns: the remote should know how to interpret button presses and make requests, but it shouldn’t know a lot about home automation or how to turn on a hot tub, because home feautures will come and go -> meaning the remote will add new applicances to be controlled in time
+
+
+Final Solution:
+Let’s step through this. We know that a command object encapsulates a request by binding together a set of actions on a specific receiver. To achieve this, it packages the actions and the receiver up into an object that exposes just one method, execute(). When called, execute() causes the actions to be invoked on the receiver. From the outside, no other objects really know what actions get performed on what receiver; they just know that if they call the execute() method, their request will be serviced.
+We’ve also seen a couple examples of parameterizing an object with a command. Back at the diner, the Waitress was parameterized with multiple orders throughout the day. In the simple remote control, we first loaded the button slot with a “light on” command and then later replaced it with a “garage door open” command. Like the Waitress, your remote slot didn’t care what command object it had, as long as it implemented the Command interface.
+
+How it works:
+The Command Pattern allows you to decouple the requester of an action from the object that actually performs the action. So, here the requester would be the remote control and the object that performs the action would be an instance of one of your vendor classes.
+A command object encapsulates a request to do something (like turn on a light) on a specific object (say, the living room light object). So, if we store a command object for each button, when the button is pressed we ask the command object to do some work. The remote doesn’t have any idea what the work is, it just has a command object that knows how to talk to the right object to get the work done.
+One negative is you end up making lotta small command stucts/classes.
+
+Why Decorator Pattern works:
