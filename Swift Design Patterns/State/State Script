@@ -1,0 +1,32 @@
+State Script
+
+Context:
+Write software to run a gumball machine. 
+
+Problem:
+Everything reacts to the quarter being put into the machine. The quarters precense and postiion on the machine dictates what happens. Therefore, need to know whats going on with the quarter at all times... even if there is no quarter in the machine
+10% of the time, when the crank is turned, the customer gets two gumballs
+
+Solution A:
+lets take advantage of enums! We can use enums to both represent the different states of haveing a quarter and it makes code more readable. Also, we can use switch statements instead of if else, to make the code even more readable.
+
+Problem with Solution A:
+1) Its starting to look redundant having switch statements in every method. 2) If we want to add a state to the quarter, like having a winner, you have to modify every method.
+3) No flexibility. You can begin to see how as the code get more complex it becomes more brittle and a lot of potential problems from simple mistakes. 
+
+Final Solution:
+State pattern, tracks state of the quarter and uses delegation to determine gumball machines behaviour to that quarter's state.
+For starters, you now have a Gumball Machine implementation that is structurally quite different from your first version, and yet functionally it is exactly the same. By structurally changing the implemention, you’ve:
+Localized the behavior of each state into its own class.
+Removed all the troublesome if statements that would have been difficult to maintain.
+Closed each state for modification, and yet left the Gumball Machine open to extension by adding new state classes (and we’ll do this in a second).
+Created a code base and class structure that maps much more closely to the Mighty Gumball diagram and is easier to read and understand.
+
+How it works:
+We’re going to rework it to encapsulate state objects in their own classes and then delegate to the current state when an action occurs.
+We’re following our design principles here, so we should end up with a design that is easier to maintain down the road. Here’s how we’re going to do it:
+① First, we’re going to define a State interface that contains a method for every action in the Gumball Machine.
+② Then we’re going to implement a State class for every state of the machine. These classes will be responsible for the behavior of the machine when it is in the corresponding state.
+③ Finally, we’re going to get rid of all of our conditional code and instead delegate to the State class to do the work for us.
+
+Because the pattern encapsulates state into separate classes and delegates to the object representing the current state, we know that behavior changes along with the internal state. The Gumball Machine provides a good example: when the gumball machine is in the NoQuarterState and you insert a quarter, you get different behavior (the machine accepts the quarter) than if you insert a quarter when it’s in the HasQuarterState (the machine rejects the quarter).
