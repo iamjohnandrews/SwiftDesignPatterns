@@ -1,0 +1,18 @@
+Composite Script
+
+Context:
+You are a startup dinner and you are setting up menu and ordering software. The software needs to be able to support multiple menus (Breakfast, lunch, dinner) and menus with in menus (for example, the dinner menu will also contain the dessert menu)
+
+Problem:
+We need some kind of a tree-shaped structure that will accommodate menus, submenus, and menu items.
+We need to make sure we maintain a way to traverse the items in each menu that is at least as convenient as what we are doing now with iterators.
+We may need to traverse the items in a more flexible manner. For instance, we might need to iterate over only the Diner’s dessert menu, or we might need to iterate over the Diner’s entire menu, including the dessert submenu.
+
+Final Solution:
+Because we need to represent menus, nested submenus and menu items, we can naturally fit them in a tree-like structure. The Composite Pattern allows you to compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.
+Let’s think about this in terms of our menus: this pattern gives us a way to create a tree structure that can handle a nested group of menus and menu items in the same structure. By putting menus and items in the same structure we create a part-whole hierarchy; that is, a tree of objects that is made of parts (menus and menu items) but that can be treated as a whole, like one big über menu.
+Once we have our über menu, we can use this pattern to treat “individual objects and compositions uniformly.” What does that mean? It means if we have a tree structure of menus, submenus, and perhaps subsubmenus along with menu items, then any menu is a “composition” because it can contain both other menus and menu items. The individual objects are just the menu items—they don’t hold other objects. As you’ll see, using a design that follows the Composite Pattern is going to allow us to write some simple code that can apply the same operation (like printing!) over the entire menu structure.
+
+
+How it works:
+To start with, we need to create a component interface; this acts as the common interface for both menus and menu items and allows us to treat them uniformly. In other words, we can call the same method on menus or menu items.

@@ -1,0 +1,30 @@
+Template Script
+
+Context:
+You are to write software that makes coffee and makes tea in a step by step process.
+This pattern shows up so often because it’s a great design tool for creating frameworks, where the framework controls how something gets done, but leaves you (the person using the framework) to specify your own details about what is actually happening at each step of the framework’s algorithm.
+
+Problem:
+When you've got code duplication or methods doing "pretty much" the same thing, thats a good sign you need to clean up the design. You should abstract the commonality into a base class/interface. 
+For the methods that are "pretty much" the same, you can make them abstract so the concrete subclass makes their implementation.
+The Dependency Inversion Principle teaches us to avoid the use of concrete classes and instead work as much as possible with abstractions.
+
+
+Final Solution:
+The CaffeineBeverage class runs the show; it has the algorithm, and protects it.
+The CaffeineBeverage class maximizes reuse among the subclasses.
+]The algorithm lives in one place and code changes only need to be made there.
+The Template Method version provides a framework that other caffeine beverages can be plugged into. New caffeine beverages only need to implement a couple of methods.
+The CaffeineBeverage class concentrates knowledge about the algorithm and relies on subclasses to provide complete implementations.
+
+A hook is a method that is declared in the abstract class, but only given an empty or default implementation. This gives subclasses the ability to “hook into” the algorithm at various points, if they wish. To use the hook, we override it in our subclass, but a subclass is also free to ignore the hook.
+ There are a few uses of hooks. As we just said, a hook may provide a way for a subclass to implement an optional part of an algorithm, or if it isn’t important to the subclass’s implementation, it can skip it. Another use is to give the subclass a chance to react to some step in the template method that is about to happen, or just happened. For instance, a hook method like justReOrderedList() allows the subclass to perform some activity (such as redisplaying an onscreen representation) after an internal list is reordered. As you’ve seen, a hook can also provide a subclass with the ability to make a decision for the abstract class.
+
+
+How Template Pattern Works:  
+The Template Method Pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
+This pattern is all about creating a template for an algorithm. What’s a template? As you’ve seen it’s just a method; more specifically, it’s a method that defines an algorithm as a set of steps. One or more of these steps is defined to be abstract and implemented by a subclass. This ensures the algorithm’s structure stays unchanged, while subclasses provide some part of the implementation.
+
+
+
+
