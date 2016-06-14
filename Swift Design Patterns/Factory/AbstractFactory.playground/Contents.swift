@@ -1,7 +1,6 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-
 //class PizzaStore {
 //
 //    func orderPizza(type: String) -> Pizza {
@@ -124,6 +123,8 @@ class NYStyleCheesePizza: Pizza {
     var toppings = ["Pepper Jack Cheese", "Mozzarella Cheese"]
 }
 
+
+//-------------------
 let nyPizzaStore = NYPizzaStore()
 let pizza = nyPizzaStore.orderPizza("cheese")
 print("I ordered a \(pizza.name) pizza")

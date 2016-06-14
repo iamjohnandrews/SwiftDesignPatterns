@@ -2,54 +2,12 @@
 
 import UIKit
 
-//class PizzaStore {
-//
-//    func orderPizza(type: String) -> Pizza {
-//        let pizza = createPizza(type)
-//
-//        pizza.prepare()
-//        pizza.bake()
-//        pizza.cut()
-//        pizza.box()
-//
-//        return pizza
-//    }
-//
-//    func createPizza(type: String) -> Pizza {
-//        return Pizza()
-//    }
-//}
-
-//public class Pizza {
-//    var name: String = "decided by subclass instntiation"
-//    var dough: String = "decided by subclass instntiation"
-//    var sauce: String = "decided by subclass instntiation"
-//    var toppings: [String] = ["decided by subclass instntiation"]
-//
-//    func prepare() {
-//        print("Preparring \(name)")
-//        print("Tossing \(dough)")
-//        print("Adding \(sauce)")
-//        for topping in toppings {
-//            print("add \(topping) toppings")
-//        }
-//    }
-//    func bake() {
-//        print("bake pizza for 20 minutes")
-//    }
-//    func cut() {
-//        print("cut pizza into big slices")
-//    }
-//    func box() {
-//        print("box pizza")
-//    }
-//}
-
 protocol Pizza {
     var name: String {get set}
     var dough: String {get set}
     var sauce: String {get set}
-    var toppings: [String] {get set}
+    var cheese: String {get set}
+    var toppings: [String]? {get set}
     
     func prepare()
     func bake()
@@ -58,14 +16,8 @@ protocol Pizza {
 }
 
 extension Pizza {
-    func prepare() {
-        print("Preparring \(name)")
-        print("Tossing \(dough)")
-        print("Adding \(sauce)")
-        for topping in toppings {
-            print("add \(topping) toppings")
-        }
-    }
+    //we just need to rework our Pizzas so they only use factory-produced ingredients.
+
     func bake() {
         print("bake pizza for 20 minutes")
     }
@@ -98,32 +50,96 @@ extension PizzaStore {
 class NYPizzaStore: PizzaStore {
     
     func createPizza(type: String) -> Pizza {
-        var nyPizza: Pizza
+        var pizza: Pizza
+        let nyPizzaIngredientFactory = NYPizzaIngredientFactory()
         
         if type == "cheese" {
-            nyPizza = NYStyleCheesePizza()
+            pizza = CheesePizza(pizzaName: "New York Style Cheese Pizza",pizzaIngredientFactory: nyPizzaIngredientFactory)
         } else {
-            nyPizza = BasicPizza()
+            pizza = VeggiePizza(pizzaName: "New York Style Veggie Pizza", pizzaIngredientFactory: nyPizzaIngredientFactory)
         }
-        
-        return nyPizza
+        return pizza
     }
 }
 
-class BasicPizza: Pizza {
-    var name = "Basic Pizza"
-    var dough = "Cardboard crust"
-    var sauce = "Red Sauce"
-    var toppings = ["Cheese", "Pepperroni"]
+class CheesePizza: Pizza {
+    var name: String
+    var dough: String
+    var sauce: String
+    var cheese: String
+    var toppings: [String]?
+    let pizzaIngredientFactory: PizzaIngredientFactory
+    
+    init(pizzaName: String, pizzaIngredientFactory: PizzaIngredientFactory) {
+        self.pizzaIngredientFactory = pizzaIngredientFactory
+        name = pizzaName
+        dough = pizzaIngredientFactory.createDough()
+        sauce = pizzaIngredientFactory.createSauce()
+        cheese = pizzaIngredientFactory.createCheese()
+    }
+    
+    func prepare() {
+        print("Preparing pizza \(name)")
+    }
 }
 
-class NYStyleCheesePizza: Pizza {
-    var name = "NY Style Pizza"
-    var dough = "Floppy, thin crust"
-    var sauce = "Marinara Sauce"
-    var toppings = ["Pepper Jack Cheese", "Mozzarella Cheese"]
+class VeggiePizza: Pizza {
+    var name: String
+    var dough: String
+    var sauce: String
+    var cheese: String
+    var toppings: [String]?
+    let pizzaIngredientFactory: PizzaIngredientFactory
+    
+    init(pizzaName: String, pizzaIngredientFactory: PizzaIngredientFactory) {
+        self.pizzaIngredientFactory = pizzaIngredientFactory
+        name = pizzaName
+        dough = pizzaIngredientFactory.createDough()
+        sauce = pizzaIngredientFactory.createSauce()
+        cheese = pizzaIngredientFactory.createCheese()
+        toppings = pizzaIngredientFactory.createVeggies()
+    }
+    
+    func prepare() {
+        print("Preparing pizza \(name)")
+    }
 }
+
+/*
+ Now, the main problem with the Very Dependent PizzaStore is that it depends on every type of pizza because it actually instantiates concrete types in its orderPizza() method.
+ While we’ve created an abstraction, Pizza, we’re nevertheless creating concrete Pizzas in this code, so we don’t get a lot of leverage out of this abstraction.
+ After applying the Factory Method, you’ll notice that our high-level component, the PizzaStore, and our low-level components, the pizzas, both depend on Pizza, the abstraction. Factory Method is not the only technique for adhering to the Dependency Inversion Principle, but it is one of the more powerful ones.
+ 
+ Now, let’s “invert” your thinking... instead of starting at the top, start at the Pizzas and think about what you can abstract.
+ */
+
+//Ingredient Factories
+protocol PizzaIngredientFactory {
+    func createDough() -> String
+    func createSauce() -> String
+    func createCheese() -> String
+    func createVeggies() -> [String]
+}
+
+class NYPizzaIngredientFactory: PizzaIngredientFactory {
+    
+    func createDough() -> String {
+        return "Thin Crust Dough"
+    }
+    func createSauce() -> String {
+        return "Marinara Sauce"
+    }
+    func createCheese() -> String {
+        return "Reggiano Cheese"
+    }
+    func createVeggies() -> [String] {
+        return ["Garlic", "Onion", "Red Pepper", "Braccoli"]
+    }
+}
+
+
+//-------------------
 
 let nyPizzaStore = NYPizzaStore()
-let pizza = nyPizzaStore.orderPizza("cheese")
-print("I ordered a \(pizza.name) pizza")
+let cheesePizza = nyPizzaStore.orderPizza("cheese")
+let veggiePizza = nyPizzaStore.orderPizza("veggie")

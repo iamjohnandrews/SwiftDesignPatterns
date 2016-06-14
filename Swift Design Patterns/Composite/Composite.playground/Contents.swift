@@ -8,8 +8,8 @@ protocol MenuComponent {
     func add(menuComponent: MenuComponent)
     func remove(menuComponentIndex: Int)
     func getChild(index: Int) -> MenuComponent
-    var price: Double {get set}
-    var isVegetarian: Bool {get set}
+    var price: Double? {get set}
+    var isVegetarian: Bool? {get set}
     
     var name: String {get set}
     var description: String {get set}
@@ -38,10 +38,10 @@ extension MenuComponent {
 struct MenuItem: MenuComponent {
     //this is the leaf class in the Composite diagram and it implements the behavior of the elements of the composite
     
-    var price: Double
+    var price: Double?
     var name: String
     var description: String
-    var isVegetarian: Bool
+    var isVegetarian: Bool?
     
     
     init(name: String, description: String, isVegetarian: Bool, price: Double) {
@@ -52,7 +52,7 @@ struct MenuItem: MenuComponent {
     }
     
     func printItem() {
-        print(" \(name) + \(description) + \(price)")
+        print(" \(name) + \(description) + \(price!)")
         if isVegetarian {
             print("User is a Vegetarian")
         }
@@ -63,6 +63,8 @@ struct Menu: MenuComponent {
     var menuComponents = [MenuComponent]()
     var name: String
     var description: String
+    var price: Double?
+    var isVegetarian: Bool?
     
     init (name: String, description: String) {
         self.name = name
