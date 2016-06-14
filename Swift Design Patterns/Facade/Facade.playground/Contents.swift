@@ -13,7 +13,6 @@ struct Amplifier {
     }
 }
 
-struct Tuner {}
 struct DvdPlayer {
     func on() {
         print("turn on DVD Player")
@@ -71,7 +70,6 @@ struct PopcornPopper {
 
 class HomeTheaterFacade {
     var amp: Amplifier
-    var tuner: Tuner
     var dvd: DvdPlayer
     var projector: Projector
     var lights: TheaterLights
@@ -79,9 +77,8 @@ class HomeTheaterFacade {
     var sound: SurroundSound
     var popper: PopcornPopper
     
-    init(amp: Amplifier, tuner: Tuner, dvd: DvdPlayer, projector: Projector, lights: TheaterLights, screen: Screen, sound: SurroundSound, popper: PopcornPopper){
+    init(amp: Amplifier, dvd: DvdPlayer, projector: Projector, lights: TheaterLights, screen: Screen, sound: SurroundSound, popper: PopcornPopper){
         self.amp = amp
-        self.tuner = tuner
         self.dvd = dvd
         self.projector = projector
         self.lights = lights
@@ -103,9 +100,27 @@ class HomeTheaterFacade {
         dvd.on()
         dvd.play(dvd)
     }
-    
+    func endMovie() {
+        popper.off()
+        lights.dim(20)
+        screen.up()
+        projector.off()
+        amp.off()
+        sound.off()
+        dvd.off()
+    }
 }
 
-struct HomeCinema {
-    
-}
+//-------------------------------
+
+let amp = Amplifier()
+let dvd = DvdPlayer()
+let projector = Projector()
+let lights = TheaterLights()
+let screen = Screen()
+let sound = SurroundSound()
+let popper = PopcornPopper()
+
+let homeTheater = HomeTheaterFacade(amp: amp, dvd: dvd, projector: projector, lights: lights, screen: screen, sound: sound, popper: popper)
+homeTheater.watchMovie("Training Day")
+homeTheater.endMovie()
