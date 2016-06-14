@@ -18,11 +18,11 @@ class iPod {
     }
     
     func increaseVolume() {
-        volumeLevel++
+        volumeLevel += 1
         print("increase iPod volume level to \(volumeLevel)")
     }
     func decreaseVolume() {
-        volumeLevel--
+        volumeLevel -= 1
         print("decrease iPod volume level to \(volumeLevel)")
     }
 }
@@ -31,7 +31,7 @@ struct TurnOniPodCommand: Command {
     let oldiPod: iPod
     
     init(choseniPod: iPod) {
-        self.oldiPod = choseniPod
+        oldiPod = choseniPod
     }
     
     func execute() {
@@ -47,7 +47,7 @@ struct TurnOffiPodCommand: Command {
     let oldiPod: iPod
     
     init(choseniPod:iPod) {
-        self.oldiPod = choseniPod
+        oldiPod = choseniPod
     }
     
     func execute() {
@@ -62,7 +62,7 @@ struct IncreaseiPodVolumeCommand: Command {
     let oldiPod: iPod
     
     init(choseniPod:iPod) {
-        self.oldiPod = choseniPod
+        oldiPod = choseniPod
     }
     
     func execute() {
@@ -73,23 +73,21 @@ struct IncreaseiPodVolumeCommand: Command {
     }
 }
 
-class RemoteControlApp { // the app controller knows nothing. It doesn't know what command is being used or what device recieves command action
-    var selectedCommand: Command?
+class RemoteControlApp {
+    // the app controller knows nothing. It doesn't know what command is being used or what device recieves command action
     
-    func setCommand(command:Command){
+    var selectedCommand: Command
+    
+    init(command:Command){
         selectedCommand = command
     }
     
     func buttonPressed() {
-        if let command = selectedCommand {
-            command.execute()
-        }
+        selectedCommand.execute()
     }
     
     func undoButtonPressed() {
-        if let command = selectedCommand {
-            command.undo()
-        }
+        selectedCommand.undo()
     }
 }
 
@@ -97,12 +95,11 @@ class RemoteControlApp { // the app controller knows nothing. It doesn't know wh
 let myiPod = iPod()
 let turnOn = TurnOniPodCommand(choseniPod: myiPod)
 
-let appRemoteControl = RemoteControlApp()
-appRemoteControl.setCommand(turnOn)
+let appRemoteControl = RemoteControlApp(command: turnOn)
 appRemoteControl.buttonPressed()
 
 let turnUpVolume = IncreaseiPodVolumeCommand(choseniPod: myiPod)
-appRemoteControl.setCommand(turnUpVolume)
+appRemoteControl.selectedCommand = turnUpVolume
 appRemoteControl.buttonPressed()
 appRemoteControl.buttonPressed()
 appRemoteControl.buttonPressed()

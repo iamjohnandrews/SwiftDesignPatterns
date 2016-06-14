@@ -8,11 +8,11 @@ protocol MenuComponent {
     func add(menuComponent: MenuComponent)
     func remove(menuComponentIndex: Int)
     func getChild(index: Int) -> MenuComponent
-    func getPrice() -> Double
-    func isVegetarian() -> Bool
+    var price: Double {get set}
+    var isVegetarian: Bool {get set}
     
-    func getName() -> String
-    func getDescription() -> String
+    var name: String {get set}
+    var description: String {get set}
     func printItem()
 }
 
@@ -26,48 +26,34 @@ extension MenuComponent {
     func getChild(index: Int) -> MenuComponent {
         return Menu(name: "defaultName", description: "defautDescription")
     }
-    func getPrice() -> Double {
-        return 0.0
+    var isVegetarian: Bool {
+        get {return false}
     }
-    func isVegetarian() -> Bool {
-        return false
+    var price: Double {
+        get {return 0.0}
     }
 }
 
 
 struct MenuItem: MenuComponent {
     //this is the leaf class in the Composite diagram and it implements the behavior of the elements of the composite
+    
+    var price: Double
     var name: String
     var description: String
-    var vegetarian: Bool
-    var price: Double
+    var isVegetarian: Bool
+    
     
     init(name: String, description: String, isVegetarian: Bool, price: Double) {
         self.name = name
         self.description = description
-        self.vegetarian = isVegetarian
+        self.isVegetarian = isVegetarian
         self.price = price
-    }
-    
-    func getName() -> String {
-        return name
-    }
-    
-    func getDescription() -> String {
-        return description
-    }
-    
-    func getPrice() -> Double {
-        return price
-    }
-    
-    func isVegetarian() -> Bool {
-        return vegetarian
     }
     
     func printItem() {
         print(" \(name) + \(description) + \(price)")
-        if isVegetarian() {
+        if isVegetarian {
             print("User is a Vegetarian")
         }
     }
@@ -92,12 +78,7 @@ struct Menu: MenuComponent {
     func getChild(index: Int) -> MenuComponent {
         return menuComponents[index]
     }
-    func getName() -> String {
-        return name
-    }
-    func getDescription() -> String {
-        return description
-    }
+
     func printItem() {
         print("\(name) \(description)")
         

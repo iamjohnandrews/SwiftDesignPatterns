@@ -7,7 +7,6 @@ protocol Command {
 }
 
 class Light {
-    
     func on(){
         print("turn light on")
     }

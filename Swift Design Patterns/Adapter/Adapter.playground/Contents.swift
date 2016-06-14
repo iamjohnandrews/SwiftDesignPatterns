@@ -7,15 +7,6 @@ protocol DuckActions {
     func fly()
 }
 
-class RegularDuck: DuckActions {
-    func quack() {
-        print("Regular Duck Quack")
-    }
-    func fly() {
-        print("Regular Duck Flying")
-    }
-}
-
 protocol TurkeyActions {
     func gobble()
     func fly()
@@ -60,6 +51,4 @@ struct Duckish {
 let turkey = RegularTurkey()
 let turkeyAdapter = TurkeyAdapter(turkey: turkey)
 let duckish = Duckish(duckish: turkeyAdapter)
-let duck = RegularDuck()
-duck.quack()
-duck.fly()
+// you get to call quack and fly on a turkey and it gobbles and flys
