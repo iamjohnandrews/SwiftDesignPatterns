@@ -1,0 +1,30 @@
+Observer Script
+
+Context:
+Your team has just won the contract to build Weather-O-Rama, Inc.’s next-generation, Internet-based Weather Monitoring Station.
+The weather station will be based on our patent pending WeatherData object, which tracks current weather conditions (temperature, humidity, and barometric pressure). We’d like you to create an application that initially provides three display elements: current conditions, weather statistics, and a simple forecast, all updated in real time as the WeatherData object acquires the most recent measurements.
+Our job is to implement measurementsChanged() so that it updates the three displays for current conditions, weather stats, and forecast.
+
+
+Problem:
+
+
+
+Final Solution:
+Our WeatherData class is the “one” and our “many” is the various display elements that use the weather measurements. We make the WeatherData object the subject, and the display elements the observers, then the displays will register themselves with the WeatherData object in order to get the information they want
+
+
+Why it works so well:
+The Observer Pattern provides an object design where subjects and observers are loosely coupled.
+The only thing the subject knows about an observer is that it implements a certain interface (the Observer interface). It doesn’t need to know the concrete class of the observer, what it does, or anything else about it.
+We can add new observers at any time. Because the only thing the subject depends on is a list of objects that implement the Observer interface, we can add new observers whenever we want. In fact, we can replace any observer at runtime with another observer and the subject will keep purring along. Likewise, we can remove observers at any time.
+We never need to modify the subject to add new types of observers. Let’s say we have a new concrete class come along that needs to be an observer. We don’t need to make any changes to the subject to accommodate the new class type; all we have to do is implement the Observer interface in the new class and register as an observer. The subject doesn’t care; it will deliver notifications to any object that implements the Observer interface.
+We can reuse subjects or observers independently of each other. If we have another use for a subject or an observer, we can easily reuse them because the two aren’t tightly coupled.
+Changes to either the subject or an observer will not affect the other. Because the two are loosely coupled, we are free to make changes to either, as long as the objects still meet their obligations to implement the subject or observer interfaces.
+
+
+
+More:
+The Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all of its dependents are notified and updated automatically. The observers are dependent on the subject such that when the subject’s state changes, the observers get notified. Depending on the style of notification, the observer may also be updated with new values.
+1) With the Observer Pattern, the Subject is the object that contains the state and controls it. So, there is ONE subject with state. The observers, on the other hand, use the state, even if they don’t own it. There are many observers and they rely on the Subject to tell them when its state changes. So there is a relationship between the ONE Subject to the MANY Observers.
+2) Because the subject is the sole owner of that data, the observers are dependent on the subject to update them when the data changes. This leads to a cleaner OO design than allowing many objects to control the same data.

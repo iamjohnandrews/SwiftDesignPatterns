@@ -1,0 +1,23 @@
+Delegation Script 
+
+Context:
+You wake up this morning, and you want coffee. But alas, you can’t make coffee yourself. So you get up, get dressed and go to a coffee shop. You know that every coffee shop conforms to a specific protocol. You walk in and say “makeMeMyCoffee”, and they make you your coffee. In other words, you’re delegating coffee making to a coffee shop
+
+Problem:
+You are lazy and don't want to make coffee yourself
+
+
+Final Solution:
+Each coffee shop, whether it’s Starbucks or Dunkin’ Donuts or your neighborhood mom and pop coffee shop, conform to the CoffeeShop protocol. When you walk in and say “makeMeMyCoffee” they know to make you coffee.
+
+Delegation is a way for one object to hand off work to another object. It allows you to have classes communicate with one another while still keeping them independent and it can perform things like inheritance, event handling, and callbacks.
+
+Delegates are basically a way to outsource your tasks, and allow different classes (Starbucks vs Dunkin Donuts) to implement the task in their own different way.
+
+How it works:
+For Delegation, it is a way for one object to hand off work to another object. It allows you to have classes communicate with one another while still keeping them independent and it can perform things like inheritance, event handling, and callbacks.
+
+delegation and protocols are one of cores of polymorphism
+
+Why this Pattern works:
+Implementing delegate protocols means you usually have to add code to different class files. With that being said, this can be an advantage if you have a one-to-many relationship with an object because protocols can be applied to many different classes which each providing its own implementations
